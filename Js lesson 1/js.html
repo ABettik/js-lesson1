@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+// Второй вариант задачи с пере
+	var a=+prompt('Please enter digit a')
+	while (isNaN (a)){
+		a=+prompt('You input incorrect type of data. Please enter digit a')
+	}
+	var b=+prompt('Please enter digit b')
+	while (isNaN (b)){
+		b=+prompt('You input incorrect type of data. Please enter digit b')
+	}
+	a+=b
+	b=a-b
+	a-=b
+	alert('digit a='+a+', digit b='+b)
+</script>
