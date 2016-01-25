@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+//Задача3
+<script type="text/javascript">
+	var a=+prompt('a');
+	var b=+prompt('b');
+	var c=+prompt('c');
+	var obj_d={};
+	if (b<a && a>c){
+		if (b<c){
+			obj_d.a=[a,a*10];
+			obj_d.c=[c,c*5];
+			obj_d.b=[b,b+' - not modified'];
+		} else {
+			obj_d.a=[a,a*10];
+			obj_d.b=[b,b*5];
+			obj_d.c=[c,c+' - not modified'];
+		}
+	} else if (a<b && b>c) {
+		if (a<c){
+		obj_d.b=[b,b*10];
+		obj_d.c=[c,c*5];
+		obj_d.a=[a,a+' - not modified'];
+		} else {
+			obj_d.b=[b,b*10];
+			obj_d.a=[a,a*5];
+			obj_d.c=[c,c+' - not modified'];
+		}
+	} else {
+		if (a<b){
+		obj_d.c=[c,c*10];
+		obj_d.b=[b,b*5];
+		obj_d.a=[a,a+' - not modified'];
+		} else {
+			obj_d.c=[c,c*10];
+			obj_d.a=[a,a*5];
+			obj_d.b=[b,b+' - not modified'];
+		}
+	}
+	console.log('inputed values: a= '+obj_d.a[0]+', b= '+obj_d.b[0]+', c= '+obj_d.c[0]+'; modified values: a= '+obj_d.a[1]+', b= '+obj_d.b[1]+', c= '+obj_d.c[1])
+</script>
