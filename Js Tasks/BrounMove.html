@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        td{
+            transition: all 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-holder">
+        <button class="start">start</button>
+        <button class="stop">stop</button>
+    </div>
+    <script>
+        function createTable(size){
+            parent=document.body;
+            var res='<table>';
+            for (var row=0;row<size;++row){
+                res+='<tr>';
+                for (var col=0;col<size;++col){
+                    res+='<td>'+
+                            (Math.floor(Math.random()*size))+
+                            '</td>';
+                }
+                res+='</tr>';
+            }
+            res+='</table>';
+            parent.innerHTML+=res;
+        }
+        createTable(+prompt('Input table size:'));
+        var tableCells=document.querySelectorAll('td');
+        var table=document.querySelector('table');
+        table.style.position='absolute';
+        var absoluteTablePos={};
+        var absoluteCellPos={};
+        var dispWidth=document.documentElement.clientWidth;
+        var dispHeight=document.documentElement.clientHeight;
+        function tableAlign(){
+            var tableWidth=table.clientWidth;
+            var tableHeight=table.clientHeight;
+            absoluteTablePos.top=(dispHeight - tableHeight)/2;
+            absoluteTablePos.left=(dispWidth - tableWidth)/2;
+            table.style ='position: absolute;' +
+                        'top:'+ absoluteTablePos.top+'px;' +
+                        'left:'+ absoluteTablePos.left+'px;'
+        }
+        tableAlign();
+        function getAbsoluteCells(){
+            var cellsPosition={};
+            for (var i=0;i < tableCells.length; ++i){
+                cellsPosition[i] = {'top': tableCells[i].offsetTop,
+                                    'left': tableCells[i].offsetLeft}
+            }
+            for (var i=0;i < tableCells.length; ++i){
+                tableCells[i].style='position: absolute;' +
+                        'top:'+cellsPosition[i].top+'px;' +
+                        'left:'+cellsPosition[i].left+'px;';
+                absoluteCellPos[i]={'top': tableCells[i].offsetTop+absoluteTablePos.top,
+                                    'left': tableCells[i].offsetLeft+absoluteTablePos.left}
+            }
+        }
+        var speed = +prompt('Input speed(1-500):');
+        getAbsoluteCells();
+        function brounMove(){
+            var direction={};
+            for (var i=0; i<tableCells.length;++i){
+                var r=Math.floor(Math.random() * (256));
+                var g=Math.floor(Math.random() * (256));
+                var b=Math.floor(Math.random() * (256));
+                var c='#' + r.toString(16) + g.toString(16) + b.toString(16);
+
+                direction = {'top':0,'left':0};
+                if (absoluteCellPos[i].top < -20 ||
+                    absoluteCellPos[i].top > dispHeight+20 ||
+                    absoluteCellPos[i].left < -10 ||
+                    absoluteCellPos[i].left > dispWidth+10){
+                    continue;
+                }
+                for (r=0;r<2;++r){
+                    var rand = 4*Math.random();
+                    var randMove = Math.floor(speed*Math.random());
+                    if (rand < 1){
+                        absoluteCellPos[i].top-=randMove;
+                        direction.top-=randMove;
+                    }else if (rand > 1 && rand <= 2){
+                        absoluteCellPos[i].left+=randMove;
+                        direction.left+=randMove;
+                    }else if (rand > 2 && rand <= 3){
+                        absoluteCellPos[i].top+=randMove;
+                        direction.top+=randMove;
+                    }else if (rand > 3 && rand <= 4){
+                        absoluteCellPos[i].left-=randMove;
+                        direction.left-=randMove;
+                    }
+                }
+                tableCells[i].style='position: absolute;'+
+                        'left:'+(parseInt(tableCells[i].style.left)+direction.left)+'px;'+
+                        'top:'+(parseInt(tableCells[i].style.top)+direction.top)+'px;'+
+                        'background-color:'+c+';opacity:50%;'
+            }
+        }
+        var stopId;
+        document.querySelector('.button-holder').addEventListener('click',function(e){
+            e=e||window.event;
+            target= e.target|| e.srcElement;
+            if (target.className == "start" && !stopId){
+                stopId = setInterval(brounMove,300);
+            }else if (target.className == "stop"){
+                clearInterval(stopId);
+                stopId=null;
+            }
+        })
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+
+        .anim-row-holder {
+            margin: -.22vh 0;
+            padding: 0;
+            width: 100vw;
+            height: 9.975vh;
+            display:inline-block;
+        }
+        .anim-row{
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 1%;
+            background: black;
+            animation: double 2s ease;
+        }
+        @keyframes blinds-left {
+            0%	{ width: 0; height: 100%;}
+            50% {height: 100%; width: 100%;}
+            100%{height: 0;  width: 100%;}
+        }
+        @keyframes blinds-top {
+            0%	{ height: 100%; }
+            100%{ width: 0; opacity: 0}
+        }
+        @keyframes double {
+            0%	{ animation: blinds-left 1s ease; }
+            100%{ animation: blinds-top 1s ease;}
+        }
+        div:hover{
+            animation: double 2s ease;
+        }
+        .animation-menu{
+            margin: 0;
+            padding: 0;
+            position: fixed;
+        }
+    </style>
+</head>
+<body>
+    <button class="a" onclick="">1</button>
+    <button class="b">2</button>
+    <ul class="animation-menu">
+        <li class="anim-row-holder"><div class="row-1 anim-row"></div></li>
+        <li class="anim-row-holder"><div class="row-2 anim-row"></div></li>
+        <li class="anim-row-holder"><div class="row-3 anim-row"></div></li>
+        <li class="anim-row-holder"><div class="row-4 anim-row"></div></li>
+        <li class="anim-row-holder"><div class="row-5 anim-row"></div></li>
+        <li class="anim-row-holder"><div class="row-6 anim-row"></div></li>
+        <li class="anim-row-holder"><div class="row-7 anim-row"></div></li>
+        <li class="anim-row-holder"><div class="row-8 anim-row"></div></li>
+        <li class="anim-row-holder"><div class="row-9 anim-row"></div></li>
+        <li class="anim-row-holder"><div class="row-10 anim-row"></div></li>
+    </ul>
+    <script>
+    </script>
+</body>
+</html>
