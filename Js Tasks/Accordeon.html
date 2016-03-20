@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .karusel-holder{
+            width: 400px;
+            background-color: #a6e1ec;
+            border-radius: 5px;
+            color: #fff;
+            display: inline-block;
+        }
+        li{
+            list-style-type: none;
+        }
+        ul{
+            margin: 5px;
+            padding: 5px;
+        }
+        ul>li{
+            border-radius: 5px;
+            background-color: #1b6d85;
+        }
+        .hidden{
+            overflow: hidden;
+            height: 0px;
+        }
+        .activ{
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="karusel-holder">
+        <ul>
+            <li class="items">Item1
+                <ul>
+                    <li class="hidden">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur doloribus earum illo, maxime sapiente veniam.</li>
+                </ul>
+            </li>
+            <li class="items">Item2
+                <ul>
+                    <li class="hidden">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem magnam molestias quasi, quibusdam similique ut!</li>
+                </ul>
+            </li>
+            <li class="items">Item3
+                <ul>
+                    <li class="hidden">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor dolore, id necessitatibus officia placeat ullam!</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <script>
+        (function(){
+            var items=document.querySelector('.hidden');
+            /*items.className+=' activ';*/
+            function hiddenItemsToggle(e){
+                e = e||window.event;
+                target = e.target|| e.srcElement;
+                while (target.children[0]){
+                    target = target.children[0];
+                }
+                if (target.classList.contains('activ')){
+                    target.classList.remove('activ');
+                    target.classList.add('hidden')
+                }else if (target.classList.contains('hidden')){
+                    if (document.querySelector('.activ')){
+                        document.querySelector('.activ').classList.add('hidden');
+                        document.querySelector('.activ').classList.remove('activ');
+                    }
+                    target.classList.remove('hidden');
+                    target.classList.add('activ')
+                }
+            }
+            document.querySelector('.karusel-holder').addEventListener('click',hiddenItemsToggle)
+        })();
+    </script>
+</body>
+</html>
