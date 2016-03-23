@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
+</head>
+<body>
+    <form onsubmit="return false">
+        <input type="text" size="30" value="London">
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+<script>
+
+
+  // $(function() {
+
+  //   var myUrl = "http://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy&page=1&place_name=London";
+
+  //   $.ajax({
+  //     url: myUrl,
+  //     method: 'GET',
+  //     crossDomain: true
+  //   }).success(function(data) {
+  //     console.log(data);
+  //   });
+  // });
+  // var xhr = new XMLHttpRequest();
+  // var result;
+  // xhr.open('GET', 'http://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy&page=1&place_name=London', true);
+
+  // // xhr.onreadystatechange = callBack;
+  // function callBack() {
+  //   if (xhr.readyState !== 4 || !xhr.responseText.length) return;
+
+  //   try {
+  //     result = JSON.parse(xhr.responseText);
+  //   } catch(err) {
+  //     console.info(err.message);
+  //   }
+  //   console.log(result);
+  // }
+
+  // xhr.addEventListener('readystatechange', callBack);
+
+  // xhr.send();
+
+
+
+</script>
+
+  <script>
+  function myCb(data) {
+    console.log(data.response);
+    var result = data.response ? data.response : null;
+    if (result.listings && result.listings.length) {
+      var ul = $('<ul/>');
+      for (var i = 0; i < result.listings.length; i++) {
+        var li = $('<li />');
+        li.html('<img src="' + result.listings[i].img_url + '"/>')
+          .appendTo(ul);
+      }
+      ul.appendTo(document.body);
+    }
+  }
+  $( "body" ).submit(function() {
+      var city = $("input")[0].value;
+      var src = "http://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy&page=1&place_name="+city+"&callback=myCb"
+      $('script').last()[0].remove();
+      $('ul').remove();
+      $('<script/>').attr('src',src).appendTo('body');
+  });
+  </script>
+  <script src="http://api.nestoria.co.uk/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy&page=1&place_name=Leeds&callback=myCb"></script>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .karusel-holder{
+            width: 400px;
+            background-color: #a6e1ec;
+            border-radius: 5px;
+            color: #fff;
+            display: inline-block;
+        }
+        li{
+            list-style-type: none;
+        }
+        ul{
+            margin: 5px;
+            padding: 5px;
+        }
+        ul>li{
+            border-radius: 5px;
+            background-color: #1b6d85;
+        }
+        .box{
+            height: 0px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div class="karusel-holder">
+    <ul>
+        <li class="items">Item1
+            <ul>
+                <li>
+                    <div class="box case">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur doloribus earum illo, maxime sapiente veniam.
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <li class="items">Item2
+            <ul>
+                <li>
+                    <div class="box case">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur doloribus earum illo, maxime sapiente veniam.
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <li class="items">Item3
+            <ul>
+                <li>
+                    <div class="box case">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur doloribus earum illo, maxime sapiente veniam.
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<script>
+    function open(e){
+        $(e).find(".case").toggle('.box')
+    }
+    $('.karusel-holder').addEventListener('click',open)
+</script>
+</body>
+</html>
