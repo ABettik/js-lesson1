@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./jquery-2.2.2.min.js"></script>
+    
+    <style>
+        .celendar-holder{
+            border: 1px solid black;
+            border-radius: 3px;
+            text-align: center
+        }
+        .celendar-header{
+            border:1px solid #adadad;
+            border-radius: 3px;
+            background-color: #adadad;
+        }
+        .coledndar-head-hover:hover{
+            border:1px solid black;
+            background-color: #5e5e5e;
+            cursor: pointer;
+        }
+        .week-days{
+            border: 1px solid #faf2cc;
+            border-radius: 3px;
+        }
+        .month-days{
+            border: 1px solid #777777;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .month-days:hover{
+            border: 1px solid #1b6d85;
+            border-radius: 3px;
+            background-color: #c1e2b3;
+        }
+        td{
+           min-width: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <p>Date:<input type="text" class="datepicker"></p>
+    <table class="celendar-holder">
+        <tr>
+            <td class="celendar-header coledndar-head-hover">&#9668</td>
+            <td class="celendar-header" colspan="5">February 2016</td>
+            <td class="celendar-header coledndar-head-hover">&#9658</td>
+        </tr>
+        <tr>
+            <td class="week-days">Su</td>
+            <td class="week-days">Mo</td>
+            <td class="week-days">Tu</td>
+            <td class="week-days">We</td>
+            <td class="week-days">Th</td>
+            <td class="week-days">Fr</td>
+            <td class="week-days">Sa</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td class="month-days">5</td>
+            <td class="month-days">6</td>
+            <td class="month-days">7</td></tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td></tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td></tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td></tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td></tr>
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
+            <td>7</td></tr>
+    </table>
+
+</body>
+</html>

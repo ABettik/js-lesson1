@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+</head>
+<body>
+    <script>
+
+        function DatePickerWrapp(){
+            function DatePicker(parent){
+                var parent = parent || $('body');
+                var monthCounter = 0;
+                this.calendarHead = $('<table class="calendar-holder disp-none"><tr><td class="calendar-header caledndar-head-hover">&#9668</td><td class="calendar-header calendar-title" colspan="5">February 2016</td><td class="calendar-header caledndar-head-hover">&#9658</td></tr><tr><td class="week-days">Su</td><td class="week-days">Mo</td><td class="week-days">Tu</td><td class="week-days">We</td><td class="week-days">Th</td><td class="week-days">Fr</td><td class="week-days">Sa</td></tr></table>');
+                var leftBtn = $(this.calendarHead.find('.caledndar-head-hover')[0]);
+                leftBtn.on('click',leafLeft);
+                var rightBtn = $(this.calendarHead.find('.caledndar-head-hover')[1]);
+                rightBtn.on('click',leafRight);
+                this.calendarBody = $('<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr>');
+                this.caledarCSS = $('<style id="datepicker">.disp-none{display: none;}.calendar-holder{position:absolute;background-color:white;border:1px solid black;border-radius: 3px;text-align: center}.calendar-header{border:1px solid #adadad;border-radius:3px;background-color: #adadad;}.caledndar-head-hover:hover{border:1px solid black;background-color:#5e5e5e;cursor:pointer;}.week-days{border:1px solid #faf2cc;border-radius:3px;}.month-days{background-color:#ffffe6;border:1px solid #777777;border-radius:3px;cursor:pointer;}.month-days:hover{border: 1px solid #1b6d85;border-radius:3px;background-color:#c1e2b3;}td{min-width: 1.2em;}.now-day{background-color: #eb9e64}</style>');
+                if (!$('#datepicker')[0]){
+                    this.caledarCSS.appendTo('head');
+                    this.hasntSCC = false;
+                }
+                this.inputField = $('<p>Date:<input type="text" class="datepicker"></p>');
+                this.inputField.appendTo(parent);
+                function refreshCl(){
+                    this.chengeCalendarTitle(monthCounter);
+                    this.chengeCalendarBody(monthCounter);
+                    this.calendarBody.remove();
+                    this.calendarBody.appendTo(this.calendarHead)
+                }
+                var refreshCl = refreshCl.bind(this);
+                refreshCl();
+                function leafLeft(){
+                    monthMinus();
+                    refreshCl();
+                }
+                var leafLeft = leafLeft.bind(this);
+                function leafRight(){
+                    monthPlus();
+                    refreshCl();
+                }
+                var leafRight = leafRight.bind(this);
+                function monthPlus(){++monthCounter};
+                var monthPlus = monthPlus.bind(this);
+                function monthMinus(){--monthCounter};
+                var monthMinus = monthMinus.bind(this);
+                this.calendarHead.appendTo(parent);
+                this.inputField.find('.datepicker').on('click', function(e){
+                    $(e.target).parent().next().fadeToggle();
+                });
+                this.calendarHead.on('click',function(e){
+                    var cell = $(e.target),
+                        date = cell.attr('data-time');
+                    if (cell.is('td') && date){
+                        cell.closest('.calendar-holder').prev().find('.datepicker').attr('value',date);
+                    }
+                });
+            }
+            DatePicker.prototype.hasntSCC = true;
+            DatePicker.prototype.getFirstMonthDay = function(monthCounter){
+                var d = new Date();
+                d.setMonth(d.getMonth()+monthCounter,1);
+                return d.getDay()
+            };
+            DatePicker.prototype.howMuchDays = function(monthCounter){
+                var d = new Date();
+                d.setMonth(d.getMonth()+monthCounter+1,0);
+                return d.getDate();
+            };
+            DatePicker.prototype.getFullDate = function(monthCounter,lang){
+                var lang = lang || "en-US";
+                var d = new Date();
+                d.setMonth(d.getMonth()+monthCounter,1);
+                return d.toLocaleString("en-US", {year: 'numeric', month: 'long'})
+            };
+            DatePicker.prototype.pad = function(num) {
+                var norm = Math.abs(Math.floor(num));
+                return (norm < 10 ? '0' : '') + norm;
+            };
+            DatePicker.prototype.chengeCalendarBody = function(monthCounter){
+                var firstDay = this.getFirstMonthDay(monthCounter);
+                var daysInMonth = this.howMuchDays(monthCounter);
+                var d = new Date();
+                var nowAttr = '[data-time=' + d.getFullYear() + '-' + this.pad(d.getMonth() + 1) + '-' + this.pad(d.getDate()) + ']';
+                d.setMonth(d.getMonth()+monthCounter,1);
+                var td = this.calendarBody.find('td');
+                for (var i = 0; i < td.length;++i){
+                    if (i < firstDay) {
+                        $(td[i]).removeClass('month-days')
+                                .empty()
+                                .attr('data-time','');
+                    } else if (i<daysInMonth+firstDay) {
+                        var now = d.getDate(),
+                                utfTime = d.getFullYear() +
+                                        '-' + this.pad(d.getMonth() + 1) +
+                                        '-' + this.pad(d.getDate());
+                        $(td[i]).addClass('month-days')
+                                .removeClass('disp-none')
+                                .removeClass('now-day')
+                                .text(now)
+                                .attr('data-time', utfTime);
+                        d.setDate(now + 1)
+                    } else {
+                        $(td[i]).addClass('disp-none')
+                                .empty()
+                                .attr('data-time','');
+                    }
+                }
+                this.calendarBody.find(nowAttr).addClass('now-day');
+            };
+            DatePicker.prototype.chengeCalendarTitle = function(monthCounter){
+                var title = this.getFullDate(monthCounter);
+                this.calendarHead.find('.calendar-title').text(title);
+            };
+            return DatePicker
+        }
+        var DatePicker = DatePickerWrapp();
+
+        var first_Calendar = new DatePicker();
+        var second_Calendar = new DatePicker();
+        var therd_Calendar = new DatePicker();
+    </script>
+</body>
+</html>
